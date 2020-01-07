@@ -8,8 +8,8 @@
 
 
 
-* [SW문제해결 기본](/Programming Intermediate.md)
-  * [Array1](/Programming Intermediate/[Programming Intermediate] Day1)
+* [SW문제해결 기본]
+  * Array1
     * 최빈수 구하기
     * View
     * Flatten
