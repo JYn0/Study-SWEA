@@ -1,5 +1,7 @@
 # SW 문제해결 기본
 
+
+
 ## [Learn > Course > Programming Intermediate > Array1]
 
 
@@ -22,6 +24,8 @@
     O(n+k)
     $$
     
+
+
 
 
 
@@ -295,6 +299,134 @@
     수행시간 O(n)보다 적음, 최악O(mn)
 
   ![a](https://user-images.githubusercontent.com/50862497/71876253-ac48ca00-3169-11ea-99a6-141fae66b0a9.JPG)
+
+
+
+
+
+## [Learn > Course > Programming Intermediate > Stack1]
+
+
+
+##### **Stack**
+
+* 자료를 쌓아 올린 형태의 자료구조(선형구조: 자료간의 관계가 1대1)
+
+* 후입선출(LIFO, Last-In-First-Out)
+
+* 삽입(push), 삭제(pop), 공백확인(isEmpty), 참조(peek)
+
+  ```C
+  int Stack[100];
+  int top = -1;
+  void push(int item){
+      if(top >= 99) return;
+      else Stack[++top] = item;
+  }
+  int pop(){
+      if(top == -1){
+          // Stack is Empty
+          return 0;
+      }
+      else return Stack[top--];
+  }
+  void main(void){
+      int item;
+      push(1);
+      push(2);
+      push(3);
+      item = pop; // 3
+      item = pop; // 2
+      item = pop; // 1
+  }
+  ```
+
+  괄호검사, 함수호출 등
+
+
+
+* **프로그램 메모리 공간**
+  * 코드 영역
+
+    실행할 프로그램의 코드가 저장되는 메모리 공간
+
+    CPU는 코드 영역에 저장된 명령문을 하나씩 가져다가 실행
+
+  * 데이터 영역
+
+    전역변수와 Static 변수가 할당되는 영역
+
+    프로그램 시작과 동시에 할당되어 종료 시까지 남아있는 특징의 변수가 저장되는 영역
+
+  * 힙 영역
+
+    프로그래머가 원하는 시점에 메모리 공간에 할당 및 소멸을 하기 위한 영역
+
+  * Stack 영역
+
+    지역변수와 매개변수가 할당되는 영역
+
+    함수를 빠져나가면 소멸되는 변수를 저장하는 영역
+
+
+
+##### **Memoization**
+
+* 컴퓨터 프로그램을 실행할 때 이전에 계산한 값을 메모리에 저장해서 매번 다시 계산하지 않도록 하여 전체적인 실행속도를 빠르게 하는 기술
+
+  DP(동적계획)의 핵심 기술
+
+* 피보나치 수열
+
+
+
+##### **DP(동적 계획법)**
+
+* Dynamic Programming
+
+  그리디 알고리즘 설계 기법과 같이 최적화 문제를 해결하는 알고리즘 설계기법
+
+* 먼저 입력 크기가 작은 부분 문제들을 모두 해결한 후에 그 해들을 이용하여 보다 큰 크기의 부분 문제들을 해결
+
+  최종적으로 원래 주어진 입력의 문제를 해결
+
+
+
+##### **DFS(깊이우선탐색)**
+
+* 가장 마지막에 만났던 갈림길의 정점으로 되돌아가서 다시 깊이우선탐색을 반복해야 하므로 후입선출 구조의 Stack을 사용
+
+  1. 시작 정점의 한 방향으로 갈 수 있는 경로가 있는 곳까지 깊이 탐색
+  2. 더이상 갈 곳이 없게되면, 가장 마지막에 만났던 갈림길 간선이 있는 정점으로 되돌아옴
+  3. 다른 방향의 정점으로 탐색을 계속 반복하여 결국 모든 정점을 방문하여 순회
+
+  ![dfs_stack](https://user-images.githubusercontent.com/50862497/71959870-124f5300-3237-11ea-886f-2a3811c3ad62.JPG)
+
+  ```java
+  visited[], Stack[] 초기화
+  DFS(v)
+      v 방문;
+  	visited[v] <- true;
+  	do {
+          if ( v의 인접 정점 중 방문 안 한 w 찾기)
+              push(v);
+          wihle(w){
+              w 방문;
+              visited[w] <- true;
+              push(w);
+              v <- w;
+              v의 인접 정점 중 방문 안 한 w찾기
+          }
+          v <- pop(Stack);
+      }while(v)
+  end DFS()
+  ```
+
+* 한 쪽 방향으로 계속 탐색하다가 더 이상 진행할 수 없으면 다시 되돌아 오는 방법으로 탐색
+
+  다시 되돌아오기 위해 사용한 자료구조로 Stack 사용
+
+
 
 
 
