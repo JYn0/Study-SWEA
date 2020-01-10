@@ -440,7 +440,165 @@
 
   해를 찾는 도중 막히면(해가 아니면) 되돌아가서 다시 해를 찾아가는 기법
 
+  어떤 노드에서 출발하는 경로가 해결책으로 이어질 것 같지 않으면 더 이상 그 경로를 따라가지 않음으로써 시도의 횟수를 줄인다.(Prunning: 가지치기)
+
   최적화 문제, 결정 문제
-
+  
   * 미로찾기
+  
+  * n queen
+  
+  * Power Set
+  
+    어떤 집합의 공집합과 자기 자신을 포함한 모든 부분 집합을 말하며, 구하고자 하는 어떤 집합의 원소 개수가 n일 경우, 부분 집합의 개수는 2의 n제곱이 나온다.
+  
+    ```C
+    #include <stdio.h>
+    #define MAXCANDIDATES 100
+    #define NMAX 100
+    
+    void construct_candidates(int a[], int k, int n, int c[], int* ncandidates){
+        c[0] = 1;
+        c[1] = 0;
+        *ncandidates = 2;
+    }
+    void backtrack(int a[], int k, int input){
+        int c[MAXCANDIDATES] = {0,};
+        int ncandidates = 0;
+        int i = 0;
+        if(k == input){ // 답이면 원하는 작업을 한다
+            printf("(");
+            for(i=0; i<=k; i++){
+                if(a[i] == 1){
+                    printf("%d", i);
+                }
+            }
+            printf(")\n");
+        } else{
+            k++;
+            construct_candidates(a, k, input, c, &ncandidates);
+            for(i=0; i<ncandidates; i++){
+                a[k] = c[i];
+                backtrack(a, k, input);
+            }
+        }
+    }
+    void main(void){
+        int a[MAX];
+        backtrack(a, 0, 3);
+    }
+    ```
+  
+  * 순열
+  
+    ```C
+    #include <stdio.h>
+    #define MAXCANDIDATES 100
+    #define NMAX 100
+    
+    void construct_candidates(int a[], int k, int n, int c[], int* ncandidates){
+        int i;
+        bool in_perm[NMAX] = {0,};
+        for(i=0; i<k; i++){
+            in_perm[a[i]] = 1;
+        }
+        *ncandidates = 0;
+        for(i=1; i<=n, i++){
+            if(in_perm[i] == 0){
+                c[*ncandidates] = i;
+                (*ncandidates)++;
+            }
+        }
+    }
+    void backtrack(int a[], int k, int input){
+        int c[MAXCANDIDATES] = {0,};
+        int ncandidates = 0;
+        int i = 0;
+        if(k == input){
+            printf("(");
+            for(i=1; i<=k; i++){
+                printf("%d", a[i]);           
+            }
+            printf(")\n");
+        } else{
+            k++;
+            construct_candidates(a, k, input, c, &ncandidates);
+            for(i=0; i<ncandidates; i++){
+                a[k] = c[i];
+                backtrack(a, k, input);
+            }
+        }
+    }
+    void main(void){
+        int a[MAX];
+        backtrack(a, 0, 3);
+    }
+    ```
+  
+    
+  
+* 알고리즘 절차
 
+  1. 상태 공간 Tree의 깊이 우선 검색을 실시
+  2. 각 노드가 유망한지를 점검
+  3. 만일 그 노드가 유망하지 않으면, 그 노드의 부모 노드로 돌아가서 검색을 계속
+
+
+
+##### **분할 정복**
+
+* 분할
+
+  * 거듭제곱
+
+    ```java
+    Power(Base, Exponent){
+        if Exponent = 1 then return Base;
+        else if Base = 0 then return 1;
+        
+        if Exponent % 2 = 0 then
+        {
+            NewBase <- Power(Base, Exponent/2);
+            return NewBase*NewBase;
+        }
+        else
+        {
+            NewBase <- Power(Base, (Exponent-1)/2);
+            return (NewBase*NewBase)*Base;
+        }
+    }
+    // O(log2n)
+    ```
+
+  * 퀵 정렬
+
+    ```java
+    quickSort(a[], begin, end)
+        if begin < end then
+        {
+            p <- partition(a, begin, end);
+            quickSort(a[], begin, p-1);
+            quickSort(a[], p+1, end);
+        }
+    end quickSort()
+    
+    partition(a[], begin, end)
+        pivot <- (begin+end)/2;
+    	L <- begin;
+    	R <- end;
+    	while(L<R) do
+        {
+            while(a[L] < a[pivot] and L<R) do L	L+1;
+            while(a[R] >= a[pivot] and L<R) do R	R-1;
+            if(L<R)
+            {
+                if(L==pivot) then pivot <- R;
+                exchange a[L] and a[R]
+            }
+        }
+    	exchange a[pivot] and a[R]
+    	return R;
+    end partition()
+    ```
+
+    
