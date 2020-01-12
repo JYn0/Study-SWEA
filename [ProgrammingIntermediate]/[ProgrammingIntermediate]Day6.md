@@ -178,6 +178,20 @@ class Solution
 \#부호와 함께 테스트 케이스의 번호를 출력하고, 공백 문자 후 답을 출력한다.  
 
 ```java
+import java.util.Scanner;
+import java.util.Stack;
 
+class Solution
+{
+	public static void main(String args[]) throws Exception
+	{
+        Scanner sc = new Scanner(System.in);
+		for(int test_case=1; test_case<=10; test_case++) {
+			
+			System.out.println("#"+test_case+" "+answer);
+		}
+		sc.close();
+    }
+}
 ```
 
