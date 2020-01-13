@@ -601,4 +601,348 @@
     end partition()
     ```
 
-    
+
+
+
+
+
+## [Learn > Course > Programming Intermediate > Queue]
+
+
+
+##### **Queue**
+
+* 삽입, 삭제의 위치가 제한적인 자료구조
+
+  뒤: 삽입/ 앞: 삭제
+
+* 선입선출구조(FIFO: First In First Out)
+
+* enQueue(item) : Queue의 뒤쪽에 원소 삽입
+
+  deQueue(): Queue 앞쪽에 원소 삭제하고 반환
+
+  createQueue(): 공백 상태의 Queue를 생성
+
+  isEmpty(): 공백상태인지 확인
+
+  isFull(): 포화상태인지 확인
+
+  Qpeek(): 앞쪽에서 원소를 삭제없이 반환
+
+
+
+##### **선형 Queue**
+
+* Queue의 크기 = 배열의 크기
+
+  front : 저장된 첫 번째 원소의 인덱스
+
+  rear : 저장된 마지막 원소의 인덱스
+
+* 초기 상태: front = rear = -1
+
+  공백 상태: front = rear
+
+  포화 상태: rear = n-1
+
+* 구현
+
+  * createQueue()
+
+  * enQueue(item)
+
+    ```java
+    enQueue(item)
+        if(isFull()) then Queue_Full();
+    	else{
+            rear <- rear + 1;
+            Q[rear] <- item;
+        }
+    end enQueue()
+    ```
+
+  * deQueue()
+
+    ```java
+    deQueue()
+        if(isEmpty()) then Queue_Empty();
+    	else{
+            front <- front + 1;
+            return Q[front];
+        }
+    end deQueue()
+    ```
+
+  * isEmpty(), isFull()
+
+    ```java
+    isEmpty()
+        if(front==rear) then retrun true;
+    	else return false;
+    end isEmpty()
+    isFull()
+        if(rear == n-1) then return true;
+    	else return false;
+    end isFull()
+    ```
+
+  * Qpeek()
+
+    ```java
+    Qpeek()
+        if(isEmpty()) then Queue_Empty();
+    	else return Q[front+1];
+    end Qpeek()
+    ```
+
+
+
+##### **원형Queue**
+
+* 초기 공백 상태 : front = rear = 0
+
+* Index의 순환(n-1 -> 0)
+
+* 구현
+
+  * createQueue()
+
+    크기 n인 1차원 배열 생성
+
+    front, rear = 0
+
+  * isEmpty(), isFull()
+
+    공백상태: front = rear
+
+    포화상태: 삽입할 rear의 다음 위치 = 현재 front
+
+    (rear+1) mod n = front(삽입할 rear값의 다음 위치)
+
+    ```java
+    isEmpty()
+        if(front==rear) then retrun true;
+    	else return false;
+    end isEmpty()
+    isFull()
+        if((rear+1) mod n = front) then return true;
+    	else return false;
+    end isFull()
+    ```
+
+  * enQueue(item)
+
+    ```java
+    enQueue(item)
+        if(isFull()) then Queue_Full();
+    	else{
+            rear <- (rear+1) mod n;
+            cQ[rear] <- item;
+        }
+    end enQueue()
+    ```
+
+  * deQueue(), delete()
+
+    ```java
+    deQueue()
+        if(isEmpty()) then Queue_Empty();
+    	else{
+            front <- (front+1) mod n;
+            return cQ[front];
+        }
+    end deQueue()
+    delete()
+        if(isEmpty()) then Queue_Empty();
+    	else front <- (front+1) mod n;
+    end delete()
+    ```
+
+  ```C
+  #define Q_SIZE 4
+  int queue[Q_SIZE];
+  int front, rear = 0;
+  void enQueue(int item){
+      if(isFull()) exit(1);
+      else{
+          rear = (rear+1) & Q_SIZE;
+          queue[rear] = item;
+      }
+  }
+  int deQueue(int[] queue){
+      if(isEmpty()) exit(1);
+      else{
+          front = (front+1) % Q_SIZE;
+          return queue[front];
+      }
+  }
+  ```
+
+
+
+##### **연결 Queue**
+
+* 단순 연결 리스트(Linked List)를 이용한 Queue
+
+  Queue의 원소 : 단순 연결 리스트의 노드
+
+  Queue의 원소 순서 : 노드의 연결 순서, 링크로 연결되어 있음
+
+* 상태 표현
+
+  front = rear = NULL (초기, 공백)
+
+  각 노드에 다음 노드를 가리키는 링크를 포함하고 있음
+
+* 구현
+
+  * createLinkedQueue()
+
+    리스트 노드 없이 포인터 변수만 생성
+
+    ```java
+    createLinkedQueue()
+        front <- NULL;
+    	rear <- NULL;
+    end createLinkedQueue()
+    ```
+
+  * isEmpty()
+
+    공백상태 : front = rear = NULL
+
+    ```java
+    isEmpty()
+        if(front=null) then return true;
+    	else return false;
+    end isEmpty()
+    ```
+
+  * enQueue(item)
+
+    1. 새로운 노드 생성 후 데이터 필드에 item 저장
+    2. 연결 Queue가 공백인 경우, 아닌 경우에 따라 front, rear 변수 지정
+
+    ```java
+    enQueue(item)
+        new <- getNode(); // getNode(): 새로운 노드 할당 후 리턴
+    	new.data <- item;
+    	new.link <- NULL;
+    	if(front = NULL) then{
+            rear <- new;
+            front <- new;
+        } else{
+            rear.link <- new;
+            rear <- new;
+        }
+    end enQueue()
+    ```
+
+  * deQueue(), delete()
+
+    1. old가 지울 노드를 가리키게 하고, front 재설정
+    2. 삭제 후 공백 Queue가 되는 경우, rear도 NULL로 설정
+    3. old가 가리키는 노드를 삭제하고 메모리 반환
+
+    ```java
+    deQueue()
+        if(isEmpty()) then Queue_Empty();
+    	else{
+            old <- front;
+            item <- front.data;
+            front <- front.link;
+            if(isEmpty()) then rear <- NULL;
+            free(old);
+            return item;
+        }
+    end deQueue()
+    ```
+
+  ```C
+  typedef int element;
+  typedef struct Node{
+      element data;
+      struct Node *next;
+  }
+  typedef struct{
+      Node *front, *rear;
+  } QueuePointer;
+  QueuePointer *LQ;
+  QueuePointer *createLinkedQueue(){
+      LQ = (QueuePointer*)malloc(sizeof(QueuePointer));
+      LQ->front = NULL;
+      LQ->rear = NULL;
+      return LQ;
+  }
+  void enQueue(element item){
+      Node *newNode = (Node*)malloc(sizeof(Node));
+      newNode->data = item;
+      newNode->next = NULL;
+      if(LQ->front == NULL){
+          LQ->front = newNode;
+      }else{
+          LQ->rear->next = newNode;
+          LQ->rear = newNode;
+      }
+  }
+  element deQueue(){
+      Node *old = LQ->front;
+      element item;
+      if(isEmpty(LQ)) return 0;
+      else{
+          itme = old->data;
+          LQ->front = LQ->front->next;
+          if(LQ->front == NULL) LQ->rear = NULL;
+          free(old);
+          return item;
+      }
+  }
+  ```
+
+
+
+##### **활용**
+
+* 우선순위 Queue
+
+  우선순위가 높은 순서대로 먼저 나가게 됨
+
+  시뮬레이션 시스템, 네트워크 트래픽 제어, 운영체제의 태스크 스케쥴링 등
+
+* 버퍼
+
+  데이터를 한 곳에서 다른 한 곳으로 전송하는 동안 일시적으로 그 데이터를 보관하는 메모리의 영역
+
+  버퍼링 : 버퍼를 활용하는 방식 또는 버퍼를 채우는 동작을 의미
+
+  입출력 및 네트워크 기능
+
+
+
+##### **BFS(Breadth First Search너비 우선 탐색)**
+
+* 시작점의 인접한 정점들을 모두 차례로 방문한 후 방문했던 정점을 시작점으로 하여 다시 인접한 정점들을 차례로 방문하는 방식
+* 인접한 정점들을 탐색한 후, 차례로 너비 우선 탐색을 진행해야 하므로, 선입선출 형태의 자료구조인 **Queue 활용**
+
+```java
+BFS(G,v) // 그래프 G, 탐색 시작점 v
+    큐 생성
+    시작점 v를 뷰에 삽입
+    점 v를 방문한 것으로 표시
+    while(큐가 비어있지 않은 경우){
+    	t <- 큐의 첫번째 원소 반환
+    	for(t와 연결된 모든 선에 대해){
+    		 u <- t의 이웃점
+    		 u가 방문되지 않은 곳이면,
+    		 u를 큐에 넣고, 방문한 것으로 표시
+    	}
+    }
+    return none
+end BFS()    
+```
+
+
+
+
+
