@@ -185,13 +185,67 @@ class Solution
 {
 	public static void main(String args[]) throws Exception
 	{
-        Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		for(int test_case=1; test_case<=10; test_case++) {
+			int answer = 0;
 			
+			int N = sc.nextInt();
+			String str = sc.next();
+			
+			Stack<Character> operator = new Stack<Character>(); // 연산자
+			char calc[] = new char[N]; // 후위표기식
+			int calc_top = -1;
+			int cnt = 0;
+			
+			for(int i=0; i<N; i++) {
+				char ref = str.charAt(i);
+				if(ref == '(') {
+					operator.push(ref);
+					cnt++;
+				} else if(ref == '+') {
+					while(!operator.isEmpty() && ((operator.peek()=='+') || (operator.peek()=='*'))) {
+						calc[++calc_top] = operator.pop();
+					}
+					operator.push(ref);
+				} else if(ref == '*') {
+					while(!operator.isEmpty() && (operator.peek()=='*')) {
+						calc[++calc_top] = operator.pop();
+					}
+					operator.push(ref);
+				} else if(ref == ')') {
+					while(operator.peek() != '(') {
+						calc[++calc_top] = operator.pop();
+					}
+					operator.pop();
+					cnt++;
+				}
+				else { // number
+					calc[++calc_top] = ref;
+				}
+			}
+			while(!operator.isEmpty()) {
+				calc[++calc_top] = operator.pop();
+			}
+			
+			Stack<Integer> calculation = new Stack<Integer>();
+			for(int i=0; i<N-cnt; i++) {
+				if(calc[i] == '+') {
+					int tmp1 = calculation.pop();
+					int tmp2 = calculation.pop();
+					calculation.push(tmp2+tmp1);
+				} else if(calc[i] == '*') {
+					int tmp1 = calculation.pop();
+					int tmp2 = calculation.pop();
+					calculation.push(tmp2*tmp1);
+				} else { // Number
+					calculation.push(calc[i]-'0'); // char to int
+				}
+			}
+			answer = calculation.pop();
 			System.out.println("#"+test_case+" "+answer);
 		}
 		sc.close();
-    }
+	}
 }
 ```
 
