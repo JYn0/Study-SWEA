@@ -30,8 +30,12 @@
     * 계산기1
     * 계산기2
     * 계산기3
-  * Queue
+  * [Queue](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day7.md)
     * 암호생성기
     * 미로1
     * 미로2
+  * [List](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day8.md)
+    * 암호문1
+    * 암호문2
+    * 암호문3
 * 
