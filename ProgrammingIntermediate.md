@@ -946,3 +946,237 @@ end BFS()
 
 
 
+## [Learn > Course > Programming Intermediate > List]
+
+
+
+##### **List**
+
+* 순서를 가진 데이터의 집합을 가리키는 추상자료형(abstract data type)
+
+  동일한 데이터를 가지고 있어도 상관 없음
+
+  |    함수명    |             기능             |
+  | :----------: | :--------------------------: |
+  | addtoFirst() |   List의 앞쪽에 원소 추가    |
+  | addtoLast()  |   List의 뒤쪽에 원소 추가    |
+  |    add()     | List의 특정 위치에 원소 추가 |
+  |   delete()   | List의 특정 위치에 원소 삭제 |
+  |     get      | List의 특정 위치에 원소 리턴 |
+
+
+
+* **순차 List**
+
+  배열 기반으로 구현
+
+  * 1차원배열에 항목들을 순서대로 저장
+  * 데이터 종류와 구조에 따라 구조화된 자료구조를 만들어 배열로 구현할 수 있음
+  * 배열의 인덱스를 이용해 원하는 위치의 데이터에 접근
+
+
+
+* **연결 List**
+
+  메모리의 동적할당을 기반으로 구현
+
+  * 자료의 논리적인 순서와 메모리 상의 물리적인 순서가 일치하지 않고, **개별적으로 위치하고 있는 원소의 주소를 연결하여 하나의 전체적인 자료구조**를 이룸
+  * 링크를 통해 원소에 접근(물리적인 순서를 맞추기 위한 작업 필요없음)
+  * **메모리의 효율적인 사용 가능**(자료구조의 크기를 동적으로 조정 가능)
+
+  노드 : 연결 List에서 하나의 원소에 필요한 데이터를 갖고 있는 자료단위, 데이터 필드 (원소의 값 저장), 링크 필드(다음 노드의 주소 저장)
+
+  헤드 : List의 처음 노드를 가리키는 자료구조
+
+  * 단순연결List
+
+    ```java
+    addtoFirst(L,i)			// List 포인터 L, 원소 i
+        new <-createNode();	// 새로운 노드 생성
+    	new.data = i;		// 데이터 필드 작성
+    	new.link = L;		// 링크 필드 작성
+    end addtoFirst()
+    
+    add(L, pre, i)			// List L, 노드 pre, 원소 i
+        // 노드 pre의 다음 위치에 노드 삽입
+        new <- createNode();// 새로운 노드 생성
+    	new.data = i;		// 데이터 필드 작성
+    	if(L=NULL) then {
+            L = new;
+            new.link = NULL;
+        }else{
+            new.link = pre.link;
+            pre.link = new;
+        }
+    end add()
+        
+    addtoLast(L, i)			// List L, 원소 i
+        new <-createNode();	// 새로운 노드 생성
+    	new.data = i;
+    	new.link = NULL;
+    	if(L=NULL) then {	// 빈 List일 때, 최초 노드 추가
+            L = new;
+            return;
+        }
+    	temp = L;			// 노드 링크 이용하여 List 순회
+    	while(temp.link != NULL) do	// 마지막 노드 찾을 때까지 이동
+            temp = temp.link;
+    	temp.link = new;	// 마지막 노드 추가
+    end addtoLast()
+    ```
+
+    ```java
+    delete(L, pre)				// List L, 노드 pre
+        // 노드 pre의 다음 위치에 있는 노드 삭제
+        if(L == NULL) then error;
+    	else{
+            target = pre.link;	// 삭제 노드 지정
+            if(target == NULL) then return;
+            pre.link = target.link;
+        }
+    	freeNode(target)		// 할당된 메모리 반납
+    end delete()
+    ```
+
+  * 이중 연결 List
+
+    양쪽 방향으로 순회할 수 있도록 노드를 연결한 List
+
+    두개의 링크 필드와 한개의 데이터 필드로 구성
+
+    * 삽입
+
+      ![list1](https://user-images.githubusercontent.com/50862497/72321269-cdb83180-36e6-11ea-9f81-e1b01118ea5b.JPG)
+
+      새로운 노드 new 생성하고 데이터 필드에 data 저장
+
+      new의 next에 cur의 next연결(다음 노드)
+
+      cur의 next에 new 노드 연결
+
+      new의 prev에 cur 노드 연결
+
+      다음 노드의 prev에 new 노드 연결
+
+      ![list2](https://user-images.githubusercontent.com/50862497/72321301-e0cb0180-36e6-11ea-87a7-22ce5d61cca5.JPG)
+
+    * 삭제
+      1. 삭제할 노드의 다음 노드의 주소를 삭제할 노드의 이전 노드의 next 필드에 저장하여 링크를 연결
+      2. 삭제할 노드의 다음 노드의 prev 필드에 삭제할 노드의 이전 노드의 주소를 저장하여 링크를 연결
+      3. 삭제할 노드의 다음 노드의 prev 필드에 삭제할 노드의 이전 노드의 주소를 저장하여 링크를 연결
+      4. cur가 가리키는 노드에 할당된 메모리를 반환
+
+
+
+**삽입 정렬**
+
+* 삽입 정렬
+
+  1. 정렬할 자료를 정렬된 부분집합 S와 정렬되지 않은 나머지 원소의 부분집합 U로 가정
+  2. U의 원소를 하나씩 꺼내어 이미 정렬되어있는 S의 마지막 원소부터 비교하면서 위치를 찾아 삽입
+  3. 삽입 정렬을 반복하면서 S의 원소는 하나씩 늘리고 U의 원소는 하나씩 감소하게 함
+  4. 부분집합 U가 공집합이 되면 삽입정렬 완성
+
+  O(n^2)
+
+
+
+##### **병합 정렬**
+
+* 병합 정렬
+
+  여러 개의 정렬된 자료의 집합을 병합하여 한 개의 정렬된 집합으로 만드는 방식
+
+  * 분할 정복 알고리즘 활용
+
+    자료를 최소 단위의 문제까지 나눈 후에 차례대로 정렬하여 최종 결과를 얻어냄
+
+    Top-Down 방식
+
+  O(n log n)
+
+  1. 분할 단계 : 전체 자료 집합에 대하여, 최소 크기의 부분집합이 될 때까지 분할 작업을 계속함
+  2. 병합 단계 : 2개의 부분집합을 정렬하면서 하나의 집합으로 병합
+
+  ```java
+  function merge_sort(list m)
+      // 사이즈가 0이거나 1인 경우, 바로 리턴
+      if length(m) <= 1 then
+      	return m
+      // else list size is > 1, so split the list int two sublists
+      // 1. DIVIDE 부분
+      list left, right
+      integer middle <- length(m) / 2
+      for each x in m before middle
+      	add x to left
+      for each x in m after or equal middle
+      	add x to right
+      // List의 크기가 1이 될 때까지 merge_sort 재귀 호출
+      left <- merge_sort(left)
+      right <- merge_sort(right)
+      // 분할된 List들 병합
+      // 2. CONQUER part...
+      return merge(left, right)
+  function merge(left, right)
+      var list result // 두 개의 분할된 List를 병합하여 result를 만듦
+      // 서브 List의 길이가 0이 될 때까지 반복
+      while length(left)>0 or length(right)>0
+          if lenght(left)>0 and length(right)>0
+              // 두 서브 List의 첫 원소들을 비교하여 작은 것부터 result에 추가함
+              if first(left) <= first(right)
+                  append first(left) to result
+                  left <- rest(left)
+              else
+                  append first(right) to result
+                  right <- rest(right)
+          else if lenght(left)>0 // 왼쪽 List에 원소가 남아있는 경우
+              append first(left) to result
+              left <- rest(left)
+          else if length(right)>0 // 오른쪽 List에 원소가 남아있는 경우
+              append first(right) to result
+              right <- rest(right)
+      end while
+  return result                
+  ```
+
+
+
+##### **List  활용**
+
+* List를 이용한 **Stack**의 구현
+
+  ```java
+  // Push / Pop 연산의 알고리즘
+  push(i)					// 원소 i를 Stack에 push
+      temp = createNode()	// 새로운 노드 생성
+      temp -> data = i;	// 데이터 필드 작성
+  	temp -> link = top;
+  	top = temp;
+  end push()
+  pop()					// Stack의 top을 pop
+      element item;
+  	stackNode* temp = top;
+  	if(top == null){
+          return 0;
+      }else{
+          item = temp -> data;
+          top = temp -> link;	// top이 가리키는 노드를 바꿈
+          free (temp);
+          return item;
+      }
+  end pop()
+  ```
+
+* List를 이용한 우선순위 Queue 구현
+
+  연결 List를 이용하여 자료 저장
+
+  원소를 삽입하는 과정에서 List 내 노드의 원소들과 비교하여 적절한 위치에 노드를 삽입하는 구조
+
+  List의 가장 앞쪽에 최고 우선순위가 위치하게 됨
+
+
+
+
+
+## [Learn > Course > Programming Intermediate > Tree]
