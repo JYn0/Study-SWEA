@@ -5,11 +5,11 @@
 ## 1231. [S/W 문제해결 기본] 9일차 - 중위순회 D4
 
 다음은 특정 단어(또는 문장)를 트리 형태로 구성한 것으로, in-order 형식으로 순회하여 각 노드를 읽으면 원래 단어를 알 수 있다고 한다.
- 
+
 
 ![img](https://swexpertacademy.com/main/common/fileDownload.do?downloadType=CKEditorImages&fileId=AV2XZLzKDdkBBASl)
 
- 
+
 위 트리를 in-order 형식으로 순회할 경우 SOFTWARE 라는 단어를 읽을 수 있다.
 
 **[제약 사항]**
@@ -94,11 +94,11 @@ class Solution
 아래는 식 “(8/2)*(6-4)”을 이진 트리로 표현한 것이다.
 
 임의의 정점에 연산자가 있으면 해당 연산자의 왼쪽 서브 트리의 결과와 오른쪽 서브 트리의 결과를 사용해서 해당 연산자를 적용한다.
- 
+
 
  ![img](https://swexpertacademy.com/main/common/fileDownload.do?downloadType=CKEditorImages&fileId=AV2XZqfqDeQBBASl)
 
- 
+
 사칙연산 “+, -, *, /”와 양의 정수로만 구성된 임의의 이진 트리가 주어질 때, 이 식의 유효성을 검사하는 프로그램을 작성하여라.
 
 여기서 말하는 유효성이란, 사칙연산 “+, -, *, /”와 양의 정수로 구성된 임의의 식이 적절한 식인지를 확인하는 것으로, 계산이 가능하다면 “1”, 계산이 불가능할 경우 “0”을 출력한다.
@@ -132,7 +132,7 @@ class Solution
 
 ![img](https://swexpertacademy.com/main/common/fileDownload.do?downloadType=CKEditorImages&fileId=AV2XaGO6DecBBASl)
 
- 
+
 **[입력]**
 
 각 테스트 케이스의 첫 줄에는 각 케이스의 트리가 갖는 정점의 총 수 N(1≤N≤200)이 주어진다.
@@ -179,9 +179,10 @@ class Solution
 			}
 
 			for(int i=1; i<=N; i++) {
-				if(N/2 <= i) { // leaf node 검사
+				if(N/2 < i) { // leaf node 검사
 					if(data[i].equals("+") || data[i].equals("-") || data[i].equals("*") || data[i].equals("/")) {
 						answer = 0;
+                        break;
 					}else {
 						answer = 1;
 						break;
@@ -208,7 +209,7 @@ class Solution
 사칙연산으로 구성되어 있는 식은 이진 트리로 표현할 수 있다. 아래는 식 “(9/(6-4))*3”을 이진 트리로 표현한 것이다.
 
 임의의 정점에 연산자가 있으면 해당 연산자의 왼쪽 서브 트리의 결과와 오른쪽 서브 트리의 결과를 사용해서 해당 연산자를 적용한다.
- 
+
 
  ![img](https://swexpertacademy.com/main/common/fileDownload.do?downloadType=CKEditorImages&fileId=AV2XZexKDeABBASl)
 
