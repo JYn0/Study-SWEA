@@ -1180,3 +1180,231 @@ end BFS()
 
 
 ## [Learn > Course > Programming Intermediate > Tree]
+
+
+
+##### **Tree**
+
+* 비선형 구조로 원소들 간에 1:n 관계를 가지는 자료구조
+
+  원소들 간에 계층관계를 가지는 계층형 자료구조
+
+  상위 원소에서 하위 원소로 내려가면서 확장되는 Tree 모양의 구조
+
+* 한 개 이상의 노드로 이루어진 유한 집합
+
+  루트(Root): 노드 중 최상위 노드
+
+  나머지 노드들: n(>=0)개의 분리집합 T1, ..., TN으로 분리될 수 있음
+
+* 분리집합 T1, ..., TN은 각각 하나의 Tree가 되며(재귀적 정의) 루트의 부트리(SubTree)라고 함
+
+* ![tree](https://user-images.githubusercontent.com/50862497/72412281-4a631280-37b0-11ea-92ef-544975bb1e62.JPG)
+
+  Tree T의 노드(node) : A, B, C, D, E, F, G, H, I, J, K
+
+  간선(edge) : 노드를 연결하는 선
+
+  * 루트 노드(Root node): Tree의 시작 노드 -> A
+
+    형제 노드(Sibling node): 같은 부모 노드의 자식 노드들 -> BCD, EF, HIJ
+
+    노상 노드(Ancestor node): 간선을 따라 루트 노드까지 이르는 경로에 있는 모든 노드들 -> K의 조상 노드는 F, B, A
+
+    부트리(SubTree): 부모 노드와 연겨로딘 간선을 끊었을 때 생성되는 Tree -> A노드와 끊으면 BEFK / CG / DHIJ 가 각각 부트리가 됨
+
+    자손 노드(Descendent node): 부트리에 있는 하위 레벨의 노드들 -> B의 자손 노드는 E, F, K
+
+  * 차수(degree) : 노드에 연결된 자식 노드의 수 -> B의 차수=2, C의 차수=1
+
+    Tree의 차수 : Tree에 있는 노드의 차수 중에서 가장 큰 값 -> Tree T의 차수=3
+
+    단말 노드(리프 노드) : 차수가 0인 노드, 자식 노드가 없는 노드 -> E, K, G, H, I, J
+
+  * 노드의 높이(레벨) : 루트에서 노드에 이르는 간선의 수 -> B의 높이=1, G의 높이=2
+
+    Tree의 높이(최대 레벨) : Tree에 있는 노드의 높이 중에서 가장 큰 값 -> Tree T의 높이 = 3
+
+
+
+##### **Binary Tree**
+
+* 모든 노드들이 2개의 부트리를 갖는 특별한 형태의 Tree
+
+  노드가 자식 노드를 최대한 2개까지만 가질 수 있는 Tree -> 왼쪽 자식 노드(Left child node), 오른쪽 자식 노드(Right child node)
+
+* 레벨 i에서의 노드의 최대 개수는 2^i개
+
+  높이가 h인 BinaryTree가 가질 수 있는 노드의 최소 개수는 (h+1)개, 최대 개수는((2^(h+1))-1)개
+
+
+
+* Full Binary Tree(포화 이진 트리)
+
+  모든 레벨에 노드가 포화상태로 차 있는 Binary Tree
+
+  최대의 노드 개수인 ((2^(h+1))-1)의 노드를 가진 Binary Tree
+
+  루트를 1번으로 하여 (2^(h+1))-1까지 정해진 위치에 대한 노드 번호를 가짐
+
+* Complete Binary Tree(완전 이진 트리)
+
+  높이가 h이고 노드 수가 n개일 때(단, h+1 <= n < (2^(h+1))-1), Full binary Tree의 노드번호 1번부터 n번까지 빈 자리가 없는 Binary Tree
+
+* Skewed Binary Tree(편향 이진 트리)
+
+  높이 h에 대한 최소 개수의 노드를 가지면서 **한쪽 방향의 자식 노드만을 가진 Binary Tree**
+
+
+
+##### **순회(Traversal)**
+
+* Tree의 각 노드를 중복되지 않게 전부 방문(Visit)하는 것
+
+* 전위 순회(Preorder traversal)
+
+  VLR, 자손노드보다 루트 노드를 먼저 방문
+
+  1. 현재 노드 n을 방문하여 처리: V
+  2. 현재 노드 n의 왼쪽 부트리로 이동: L
+  3. 현재 노드 n의 오른쪽 부트리로 이동: R
+
+  ```java
+  preorder_traverse(T)
+      if(T is not null)
+          visit(T);
+  		preorder_traverse(T.left);
+  		preorder_traverse(T.right);
+  End preorder_traverse
+  ```
+
+  
+
+* 중위 순회(Inorder traversal)
+
+  LVR, 왼쪽 자손, 루트, 오른쪽 자손 순으로 방문
+
+  1. 현재 노드 n의 왼쪽 부트리로 이동: L
+  2. 현재 노드 n을 방문하여 처리: V
+  3. 현재 노드 n의 오른쪽 부트리로 이동: R
+
+  ```java
+  inorder_traverse(T)
+      if(T is not null)
+          inorder_traverse(T.left);
+  		visit(T);
+  		inorder_traverse(T.right);
+  End inorder_traverse
+  ```
+
+  
+
+* 후위 순회(Postorder traversal)
+
+  LRV, 루트노드보다 자손을 먼저 방문
+
+  1. 현재 노드 n의 왼쪽 부트리로 이동: L
+  2. 현재 노드 n의 오른쪽 부트리로 이동: R
+  3. 현재 노드 n을 방문하여 처리: V
+
+  ```java
+  postorder_traverse(T)
+      if(T is not null)
+          inorder_traverse(T.left);
+  		inorder_traverse(T.right);
+  		visit(T);
+  End postorder_traverse
+  ```
+
+  
+
+* Array를 이용한 Binary Tree
+
+  노드 번호의 성질
+
+  1. 노드 번호가 i인 노드의 부모 노드 번호 = i/2
+  2. 노드 번호가 i인 노드의 왼쪽 자식 노드 번호 = 2*i
+  3. 노드 번호가 i인 노드의 오른쪽 자식 노드 번호 = 2*i+1
+
+  노드 번호를 Array의 인덱스로 사용
+
+* 연결List를 이용한 Binayr Tree
+
+  단순 연결 List 노드를 사용하여 구현
+
+  
+
+##### **Expression Tree**
+
+* 수식 이진 트리
+
+  수식을 표현하는 Binary Tree
+
+  연산자는 루트 노드이거나 가지노드
+
+  피연산자는 모두 리프 노드(단말 노드)
+
+* 수식 표기법
+
+  ![etree](https://user-images.githubusercontent.com/50862497/72420582-59eb5700-37c2-11ea-84ec-c84291da3efe.JPG)
+
+  * 중위 순회 식의 중위 표기법 : A / B * C * D + E
+  * 후위 순회 식의 후위 표기법 : A B / C * D * E +
+  * 전위 순회 식의 전위 표기법 : + * * / A B C D E
+
+
+
+##### **Binary search Tree**
+
+* 탐색작업을 효율적으로 하기 위한 자룍조
+
+  모든 원소는 서로 다른 유일한 키를 가짐
+
+  key(왼쪽 부트리) < key(루트 노드) < key(오른쪽 부트리)
+
+  왼쪽 부트리와 오른쪽 부트리도 Binary search Tree
+
+  중위 순회하면 오름차순으로 정렬된 값을 얻을 수 있음
+
+* 탐색 연산
+
+  1. 루트에서 시작
+
+  2. 탐색할 키 값 x를 루트 노드의 키값과 비교
+
+     2-1. 키값 x = 루트 노드의 키값 : 원하는 원소를 찾았으므로 탐색연산 성공
+
+     2-2. 키값 x < 루트 노드의 키값 : 루트 노드의 왼쪽 서브 Tree에 대해서 탐색연산 수행
+
+     2-3. 키값 x > 루트 노드의 키값 : 루트 노드의 오른쪽 서브 Tree에 대해서 탐색연산 수행
+
+  3. 부트리에 대해서 순환적으로 탐색 연산을 반복
+
+* O(h), h:BST의 깊이(height)
+
+  Binary Tree가 균형적인 경우 O(log n)
+
+  최악의 경우 O(n)
+
+
+
+##### **Heap**
+
+* Complete binary Tree에 있는 노드 중에서 키값이 가장 큰 노드나 키값이 가장 작은 노드를 찾기 위해서 만든 자료구조
+
+  * 최대 힙(Max heap)
+
+    키값이 가장 큰 노드를 찾기 위한 Complete binary Tree
+
+    부모 노드의 키 값 > 자식 노드의 키 값
+
+    루트 노드 : 키 값이 가장 큰 노드
+
+  * 최소 힙(Min heap)
+
+    키값이 가장 작은 노드를 찾기 위한 Complete binary Tree
+
+    부모 노드의 키 값 < 자식 노드의 키 값
+
+    루트 노드 : 키 값이 가장 작은 노드
+
