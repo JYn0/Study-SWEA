@@ -242,6 +242,74 @@ class Solution
 #부호와 함께 테스트 케이스의 번호를 출력하고, 공백 문자 후 테스트 케이스에 대한 답을 출력한다. 답은 항상 정수값으로 기록한다.
 
 ```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
+class Tree {
+	String node_data;
+	int left;
+	int right;
+
+	public Tree(String node_data, int left, int right) {
+		this.node_data = node_data;
+		this.left = left;
+		this.right = right;
+	}
+}
+
+class Solution
+{
+	static Tree[] tree;
+
+	public static void main(String[] args) throws Exception {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+
+		for (int test_case = 1; test_case < 11; test_case++) {
+			int N = Integer.parseInt(br.readLine());
+			tree = new Tree[N + 1];
+
+			for (int i = 0; i < N; i++) {
+				st = new StringTokenizer(br.readLine());
+				int node_num = Integer.parseInt(st.nextToken());
+				String node_data = st.nextToken();
+
+				if (st.hasMoreTokens()) {
+					tree[node_num] = new Tree(node_data, Integer.parseInt(st.nextToken()),
+							Integer.parseInt(st.nextToken()));
+				} else {
+					tree[node_num] = new Tree(node_data, 0, 0);
+				}
+			}
+
+			for (int i = N; i > 0; i--) {
+				if (tree[i].left != 0) {
+					int tmp1 = Integer.parseInt(tree[tree[i].left].node_data);
+					int tmp2 = Integer.parseInt(tree[tree[i].right].node_data);
+
+					switch (tree[i].node_data) {
+
+					case "+":
+						tree[i].node_data = String.valueOf((tmp1 + tmp2));
+						break;
+					case "-":
+						tree[i].node_data = String.valueOf((tmp1 - tmp2));
+						break;
+					case "*":
+						tree[i].node_data = String.valueOf((tmp1 * tmp2));
+						break;
+					case "/":
+						tree[i].node_data = String.valueOf((tmp1 / tmp2));
+						break;
+					}
+				}
+			}
+			int answer = Integer.parseInt(tree[1].node_data);
+			System.out.println("#"+test_case+" "+answer);
+		}
+	}
+}
 ```
 
