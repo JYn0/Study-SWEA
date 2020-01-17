@@ -5,9 +5,9 @@
 [SW ExpertAcademy](https://swexpertacademy.com/)
 
 
+
+
 > Learn > Course > Programming Intermediate
-
-
 
 ### [SW문제해결 기본](/ProgrammingIntermediate.md)
 
@@ -46,7 +46,13 @@
 
 
 
-### [SW문제해결 Self Study Book](/ProgrammingIntermediate.md)
 
-* Self Study Book 1
-  * 
+
+> Learn > Course > Programming Advanced
+
+### [SW문제해결 응용](/ProgrammingAdvanced.md)
+
+(1일차에 필요한 내용 다 듣고 쓰기)
+
+* 1일차
+* 2일차
