@@ -9,7 +9,7 @@
 
 > Learn > Course > Programming Intermediate
 
-### [SW문제해결 기본](/ProgrammingIntermediate.md)
+## [SW문제해결 기본](/ProgrammingIntermediate.md)
 
 * [Array1](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day1.md)
   * 최빈수 구하기
@@ -44,13 +44,17 @@
   * 사칙연산 유효성 검사
   * 사칙연산
 
+### [SW문제해결 Self Study Book](/ProgrammingIntermediateSSB.md)
 
+* I - Array, String
+* II - Stack, Queue
+* III - List, Tree
 
 
 
 > Learn > Course > Programming Advanced
 
-### [SW문제해결 응용](/ProgrammingAdvanced.md)
+## [SW문제해결 응용](/ProgrammingAdvanced.md)
 
 (1일차에 필요한 내용 다 듣고 쓰기)
 
