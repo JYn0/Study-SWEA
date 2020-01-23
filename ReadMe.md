@@ -44,6 +44,8 @@
   * 사칙연산 유효성 검사
   * 사칙연산
 
+
+
 ### [SW문제해결 Self Study Book](/ProgrammingIntermediateSSB.md)
 
 * I - Array, String
@@ -52,11 +54,10 @@
 
 
 
+
+
 > Learn > Course > Programming Advanced
 
-## [SW문제해결 응용](/ProgrammingAdvanced.md)
+## [SW문제해결 응용 - 구현](/ProgrammingAdvanced.md)
 
-(1일차에 필요한 내용 다 듣고 쓰기)
-
-* 1일차
-* 2일차
+* 시작하기
