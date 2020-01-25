@@ -42,9 +42,11 @@
 
 > Learn > Course > Programming Advanced
 
-## [SW문제해결 응용 - 구현,최적화](/ProgrammingAdvanced.md)
+## [SW문제해결 응용](/[ProgrammingAdvanced])
 
-구현
+
+
+### [SW문제해결 응용 - 구현](/ProgrammingAdvanced_Implement .md)
 
 * 시작하기
   * 알고리즘 복잡도 / 비트연산 / 진수 / 실수
@@ -61,7 +63,9 @@
 * 그래프의 최소 비용 문제
   * 최소 신장 트리 / 프림 알고리즘 / 크루스칼 알고리즘 / 최단 경로 / 다익스트라 알고리즘
 
-최적화
+
+
+### [SW문제해결 응용 - 최적화](/ProgrammingAdvanced_Optimization.md)
 
 * 문자열 탐색
   * 해싱 / 문자열 매칭 /트라이 / 접미어트리 / 접미어배열 / 압축
@@ -80,7 +84,7 @@
 
 
 
-## [SW문제해결 응용 - 강의형](/ProgrammingAdvanced.md)
+### [SW문제해결 응용 - 강의형](/ProgrammingAdvanced_Lecture.md)
 
 * 알고리즘 개론
   * START / 표준 입출력 방법
