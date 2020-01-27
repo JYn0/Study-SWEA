@@ -14,18 +14,24 @@
 * [Array1](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day1.md)
   * 최빈수 구하기 / View / Flatten
 * [Array2](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day2.md)
+  * 2차원 Array / 검색 / 정렬
   * Sum / Ladder1 / Ladder2
 * [String](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day3.md)
   * String / 회문1 / 회문2
 * [Stack1](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day4.md)
+  * Stack / Memoization / DP / DFS
   * 거듭제곱 / 괄호 짝짓기 / 길찾기
 * [Stack2](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day6.md)
+  * 백트래킹 / 분할정복
   * 계산기1 / 계산기2 / 계산기3
 * [Queue](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day7.md)
+  * Queue / 선형 / 원형 / 연결 / 활용 / BFS
   * 암호생성기 / 미로1 / 미로2
 * [List](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day8.md)
+  * List / 병합 정렬 / 활용
   * 암호문1 / 암호문2 / 암호문3
 * [Tree](/[ProgrammingIntermediate]/[ProgrammingIntermediate]Day9.md)
+  * Tree / Binary Tree / 순회 / Expression Tree / Binary search Tree / Heap
   * 중위순회 / 사칙연산 유효성 검사 / 사칙연산
 
 
