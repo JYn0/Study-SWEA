@@ -53,7 +53,7 @@
 * Day1
   * 단순 2진 암호코드 / 
 
-### [SW문제해결 응용 - 구현](/ProgrammingAdvanced_Implement .md)
+### [SW문제해결 응용 - 구현](/[ProgrammingAdvanced]/ProgrammingAdvanced_Implement .md)
 
 * 시작하기
   * 알고리즘 복잡도 / 비트연산 / 진수 / 실수
@@ -72,7 +72,7 @@
 
 
 
-### [SW문제해결 응용 - 최적화](/ProgrammingAdvanced_Optimization.md)
+### [SW문제해결 응용 - 최적화](/[ProgrammingAdvanced]/ProgrammingAdvanced_Optimization.md)
 
 * 문자열 탐색
   * 해싱 / 문자열 매칭 /트라이 / 접미어트리 / 접미어배열 / 압축
@@ -91,7 +91,7 @@
 
 
 
-### [SW문제해결 응용 - 강의형](/ProgrammingAdvanced_Lecture.md)
+### [SW문제해결 응용 - 강의형](/[ProgrammingAdvanced]/ProgrammingAdvanced_Lecture.md)
 
 * 알고리즘 개론
   * START / 표준 입출력 방법
