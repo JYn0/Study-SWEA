@@ -50,7 +50,8 @@
 
 ## [SW문제해결 응용](/[ProgrammingAdvanced])
 
-
+* Day1
+  * 단순 2진 암호코드 / 
 
 ### [SW문제해결 응용 - 구현](/ProgrammingAdvanced_Implement .md)
 
