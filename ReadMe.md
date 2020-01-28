@@ -50,10 +50,13 @@
 
 ## [SW문제해결 응용](/[ProgrammingAdvanced])
 
-* Day1
-  * 단순 2진 암호코드 / 
+* [Day1](/[ProgrammingAdvanced]/[ProgrammingIntermediate]Day1.md)
+  * 단순 2진 암호코드 / 암호코드 스캔
+* Day2
 
-### [SW문제해결 응용 - 구현](/[ProgrammingAdvanced]/ProgrammingAdvanced_Implement .md)
+
+
+### [SW문제해결 응용 - 구현](/[ProgrammingAdvanced]/ProgrammingAdvanced_Implement.md)
 
 * 시작하기
   * 알고리즘 복잡도 / 비트연산 / 진수 / 실수
