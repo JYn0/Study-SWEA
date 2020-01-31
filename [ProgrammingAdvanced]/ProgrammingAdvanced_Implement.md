@@ -243,7 +243,7 @@
 
 ##### 조합적 문제
 
-* 순열
+* 순열(Permutations)
 
   서로 다른 것들 중 몇 개를 뽑아서 한줄로 나열하는 것
 
@@ -268,3 +268,34 @@
 * 부분집합
 
   최적의 답이 전체 값들의 부분 집합인 알고리즘들이 존재
+  
+  * 바이너리 카운팅(Binary Counting)
+  
+    비트표현을 이용해서 부분집합을 생성하는 가장 자연스럽고 간단한 방법
+  
+    부분집합을 사전적 순서(Lexicographic Order)로 생성할때도 효과적
+  
+    ```C++
+    int i;
+    int arr[] = {3, 6, 7, 1, 5, 4};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    for(num=0; num<(1<<n); num++){ // 1 << n 부분집합의 개수(2의 누승)
+        for(i=0; i<n; i++){ // n(원소의 수)개의 비트를 검사
+            if(num & (1<<i)){ // num의 i번재 비트 1인지 확인
+                printf("%d, ", arr[i]);
+            }
+        }
+        printf("\n";)
+    }
+    ```
+  
+* 조합(Combination)
+
+  서로 다른 n개의 원소 중 r개를 순서 없이 골라낸 것
+
+  ![c](https://user-images.githubusercontent.com/50862497/73509419-60183f00-4422-11ea-8f1c-f6e8e54d5ede.JPG)
+
+  
+
+## [Learn > Course > Programming Advanced > 구현 > 탐욕알고리즘]
