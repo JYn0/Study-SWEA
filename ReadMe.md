@@ -52,7 +52,8 @@
 
 * [Day1](/[ProgrammingAdvanced]/[ProgrammingIntermediate]Day1.md)
   * 단순 2진 암호코드 / 암호코드 스캔
-* Day2
+* [Day2](/[ProgrammingAdvanced]/[ProgrammingIntermediate]Day2.md)
+  * 균형점
 
 
 
