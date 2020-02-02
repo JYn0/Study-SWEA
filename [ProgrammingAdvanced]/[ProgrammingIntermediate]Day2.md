@@ -47,7 +47,69 @@ n개의 자성체들의 y와 z의 좌표들은 모두 동일하고 x의 좌표�
 좌표 값이 소수점 이하 10자리 이상이면 10자리까지만 출력한다.
 
 ```java
+import java.util.Scanner;
 
+class Solution
+{
+	static int N;
+	static int Loc[];
+	static int Mass[];
+
+	public static double biSection(int pos) {
+		double mid = 0, low = Loc[pos], high = Loc[pos+1];
+		for(int i=0; i<100; i++) {
+			mid = (low+high)/2;
+			double left=0, right=0;
+			
+			for(int j=0; j<=pos; j++) {
+				double dx = mid - Loc[j];
+				left += Mass[j] / (dx*dx);
+			}
+			for(int j=pos+1; j<N; j++) {
+				double dx = Loc[j] - mid;
+				right += Mass[j] / (dx*dx);
+			}
+			
+			if(left > right) {
+				low = mid;
+			}else if(left < right) {
+				high = mid;
+			}else {
+				return mid;
+			}
+		}
+		return mid;
+	}
+	
+	public static void main(String[] args) throws Exception{
+		Scanner sc = new Scanner(System.in);
+		int TC = sc.nextInt();
+		for(int test_case=1; test_case<=TC; test_case++) {
+			
+			N = sc.nextInt();
+			Loc = new int[N];
+			Mass = new int[N];
+			for(int i=0; i<N; i++) {
+				Loc[i] = sc.nextInt();
+			}
+			for(int i=0; i<N; i++) {
+				Mass[i] = sc.nextInt();
+			}
+			
+			double ans[] = new double[N-1];
+			for(int i=0; i<N-1; i++) {
+				ans[i] = biSection(i);
+			}
+			
+			System.out.printf("#"+test_case);
+			for(int i=0; i<ans.length; i++) {
+				System.out.printf(" %.10f",ans[i]);
+			}
+			System.out.println();
+		}
+		sc.close();
+	}
+}
 ```
 
 ```C++
