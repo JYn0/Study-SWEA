@@ -9,6 +9,9 @@ Arrays.deepToString(다차원배열)
     
 String str = String.valueOf(charater); // char to string
 int a=Integer.parseInt(String.valueOf(c)); // char to int
+// string to char
+String s = "abcde";
+char c = s.charAt(0);
 ```
 
 
