@@ -163,4 +163,184 @@
 
   nPn = n! = n X (n-1) X ... 2 X 1 -> Factorial
 
-* 
+* 재귀 호출을 통한 순열로 TSP 해결
+
+  ```C++
+  #include <iostream>
+  #include <stdio.h>
+  using namespace std;
+  
+  #define INF 10000; // 임의의 큰값
+  #define MAX_N 6;
+  
+  int N, Graph[Max_N][MAX_N];
+  int solve(int pos, int visited);
+  
+  int main(){
+      int tcCnt;
+      freopen("tsp_input.txt","r", stdin);
+      cin >> tcCnt;
+      for(int t=1; t<=tcCnt; ++t){
+          cin >> N;
+          for(int i=0; i<N; ++i){
+              for(int j=0; j<N; ++j){
+                  cin >> Graph[i][j];
+              }
+          }
+          int ans = INF;
+          for(int i=0; i<N; ++i){
+              int tmp = solve(i, 1<<i);
+              if(ans > tmp)
+                  ans = tmp
+          }
+          cout << "#" << t << ' '<< ans << endl;
+      }
+      return 0;
+  }
+  
+  int solve(int pos, int visited){
+      if(visited == (1<<N)-1)
+          return 0;
+      int ret = INF;
+      for(int next=0; next<N; ++next){
+          if(!(visited & (1<<next)) && Graph[pos][next]){
+              int tmp = Graph[pos][next] + solve(next, visited | (1<<next));
+              if(tmp < ret)
+                  ret = tmp
+          }
+      }
+      return ret;
+  }
+  ```
+
+  
+
+##### 조합
+
+* 서로다른 n개의 원소 중 r개를 순서 없이 골라낸 것(combination)
+
+  nCr = n! / (n-r)!r!, (n >= r) / nCr = n-1Cr-1 + n-1Cr / nC0 = 1
+
+* 순열 : 선택의 순서가 결과에 영향을 주는 경우
+
+  2개를 골라서 만들 수 있는 최대수 - 재귀 예제
+
+  ```c++
+  #include <iostream>
+  #include <stdio.h>
+  using namespace std;
+  
+  #define MAX_N 6;
+  
+  int N, Nums[MAX_N];
+  int solve(int cnt, int used, int val);
+  
+  int main(){
+      int tcCnt;
+      freopen("number_input.txt","r", stdin);
+      cin >> tcCnt;
+      for(int t=1; t<=tcCnt; ++t){
+          cin >> N;
+          for(int i=0; i<N; ++i){
+              cin >> Nums[i];
+          }
+          cout << "#" << t << ' '<< solve(0,0,0) << endl;
+      }
+      return 0;
+  }
+  
+  int solve(int cnt, int used, int val){
+      if(cnt == 2)
+          return val;
+      int ret = 0;
+      for(int i=0; i<N; ++i){
+          if(used & (1<<i))
+              continue;
+          int tmp = sovle(cnt+1, used | (1<<i), val*10+Nums[i]);
+          if(tmp > ret)
+              ret = tmp
+      }
+      return ret;
+  }
+  ```
+
+  
+
+* 조합 : 선택의 순서가 결과에 영향을 주지 않는 경우
+
+  2개를 더해서 만들 수 있는 최대값 - 재귀 예제
+
+  ```C++
+  #include <iostream>
+  #include <stdio.h>
+  using namespace std;
+  
+  #define MAX_N 10;
+  
+  int N, Nums[MAX_N];
+  int solve(int cnt, int used, int val);
+  
+  int main(){
+      int tcCnt;
+      freopen("number_input.txt","r", stdin);
+      cin >> tcCnt;
+      for(int t=1; t<=tcCnt; ++t){
+          cin >> N;
+          for(int i=0; i<N; ++i){
+              cin >> Nums[i];
+          }
+          cout << "#" << t << ' '<< solve(0,0,0) << endl;
+      }
+      return 0;
+  }
+  
+  int solve(int cnt, int used, int val){
+      if(cnt == 2)
+          return val;
+      if(pos == N)
+          return -1;
+      
+      int ret = 0, tmp;
+      tmp = solve(pos+1, cnt+1, val+Nums[pos]);
+      if(tmp > ret)
+          ret = tmp;
+      
+      tmp = solve(pos+1, cnt, val);
+      if(tmp > ret)
+          ret = tmp
+      return ret;
+  }
+  // --------------------------------------------------
+  
+  // Bit 부분 집합 예제
+  int CountBits(int value){
+      int count = 0;
+      while (value > 0){
+          if((value & 1) == 1)
+              count++;
+          value = value >> 1;
+      }
+  	return count;
+  }
+  
+  int solve(){
+      int ret = 0;
+      for(int i=0; i < (1<<N); ++i){
+          if(countBits(i) == 2){ // Bit가 2개인 것만
+              int sum = 0;
+              for(int j=0; j<N; ++j){
+                  if(i & (1 << j))
+                      sum += Nums[j];
+              }
+              if(sum > ret)
+                  ret = sum;
+          }
+      }
+      return ret;
+  }
+  ```
+
+  
+
+##### 완전 탐색 기법
+
