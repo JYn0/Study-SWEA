@@ -381,6 +381,7 @@ int main(){
     }
     return 0;
 }
+
 int solve(int arr[], int pos, int used){
     if(pos == 6){
         int tri = 0, run = 0;
@@ -417,5 +418,104 @@ int solve(int arr[], int pos, int used){
 
   각 선택 시점에서 이루어지는 결정은 지역적으로는 최적이지만, 그 선택들을 계속 수집하여 최종적인 해답을 만들었다고 하여, 그것이 최적이라는 보장은 없다.
 
-* 
+* 동전 거스름돈 문제 / 배낭 짐싸기 
+
+
+##### 회의실 배정 - 탐욕 기법 코드
+
+```C++
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+
+struct meeting_type{
+    int start;
+    int end;
+};
+int N;
+meeting_type Meetings[10];
+
+int solve();
+
+int main(){
+    freopen("meeting_input.txt","r", stdin);
+    cin >> N;
+    for(int i=0; i<N; ++i){
+        cin >> Meetings[i].start > Meetings[i].end;
+    cout << solve() << endl;
+    }
+    return 0;
+}
+
+int solve(){
+    for(int i=0; i<N-1; ++i){ // Sorting
+        for(int j=i+1; j<N; ++j){
+            if(Meetings[i].end > Meetings[j].end){
+                meeting_type tmp = Meetings[i];
+                Meetings[i] = Meetings[j];
+                Meetings[j] = tmp;
+            }
+        }
+    }
+    int lastEnd = 0, cnt = 0;
+    for(int i=0; i<N; ++i){
+        if(Meetings[i].start < lastEnd)
+            continue;
+        printf("(%d,%d)\n", Meetings[i].start, Meetings[i].end);
+        lastEnd = Meetings[i].end;
+        ++cnt;
+    }
+    return cnt;
+}
+```
+
+##### Baby-gin 탐욕 기법 코드
+
+```C++
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+
+int Nums[6], Cnt[10];
+
+int solve();
+
+int main(){
+    int tcCnt;
+    freopen("babyGin_input.txt","r", stdin);
+    cin >> tcCnt;
+    for(int t=1; t<=tcCnt; ++t){
+        for(int i=0; i<10; ++i){
+            Cnt[i] = 0;
+        }
+        for(int i=0; i<6; ++i){
+            cin >> Nums[i];
+            Cnt[Nums[i]]++;
+        }
+        cout << "#" << t << ' '<< solve() << endl;
+    }
+    return 0;
+}
+
+int solve(){
+    int tri = 0, run = 0;
+    for(int i=0; i<10; ){
+        if(Cnt[i] >= 3){ // triplet
+            Cnt[i] -= 3;
+            tri++;
+        }else if(i<=7 && Cnt[i]>=1 && Cnt[i+1]>=1 && Cnt[i+2]>=1){ // run
+            Cnt[i]--;
+            Cnt[i+1]--;
+            Cnt[i+2]--;
+        }else{
+            ++i;
+        }
+    }
+    if(tri + run == 2)
+        return 1;
+    return 0;
+}
+```
+
+
 

@@ -223,6 +223,26 @@ int main(int argc, char** argv){
 ```
 
 ```C++
+#include <iostream>
+using namespace std;
+int N, Digit;
 
+int main(int argc, char** argv){
+    int tcCnt;
+    cin >> tcCnt;
+    for(int t=1; t<=tcCnt; ++t){
+        int num, cnt;
+        cin >> num >> cnt;
+        
+        Digit = 0;
+        int tmp = num;
+        while(tmp){
+            tmp /= 10;
+            ++Digit;
+        }
+        cout << "#" << t << ' '<< solve(num, cnt) << endl;
+    }
+    return 0;
+}
 ```
 
