@@ -219,7 +219,73 @@ int main(int argc, char** argv){
 같은 줄에 빈 칸을 하나 사이에 두고 교환 후 받을 수 있는 가장 큰 금액을 출력한다.  
 
 ```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
+class Solution
+{
+	static int Max_memo[] = new int[1000000];
+	static int answer;
+	
+	public static void go(String num, int change, int cnt) {
+		
+		int ret = Integer.parseInt(num);
+		
+		if(Max_memo[cnt] > ret) {
+			return;
+		}
+		if(change == cnt) {
+			if(ret > answer) {
+				answer = ret;
+			}
+			return;
+		}
+		
+		Max_memo[cnt] = ret;
+		
+		
+		for(int i=0; i<num.length(); i++) {
+			for(int j=i+1; j<num.length(); j++) {
+				
+				String num_arr[] = new String[num.length()];
+				for(int k=0; k<num.length(); k++) {
+					num_arr[k] = String.valueOf(num.charAt(k));
+				}
+				
+				// swap
+				String temp = num_arr[i];
+				num_arr[i] = num_arr[j];
+				num_arr[j] = temp;
+				String tmp = "";
+				for(int k=0; k<num.length(); k++) {
+					tmp += num_arr[k];
+				}
+				
+				go(tmp, change, cnt+1);
+			}
+		}
+	}
+
+    public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		int TC = Integer.parseInt(br.readLine());
+		for(int test_case = 1; test_case<=TC; test_case++) {
+			Arrays.fill(Max_memo, -1);
+			answer = 0;
+			
+			st = new StringTokenizer(br.readLine());
+			String num = st.nextToken();
+			int change = Integer.parseInt(st.nextToken());
+			
+			go(num, change, 0);
+			System.out.println("#"+test_case+" "+ answer);
+			
+		}
+	}
+}
 ```
 
 ```C++
@@ -343,6 +409,92 @@ int solve(int num, int cnt){
         }
     }
     return ret;
+}
+```
+
+```java
+// 참고
+import java.util.Arrays;
+import java.util.Scanner;
+ 
+class find {
+    public static void max(int s, int[] a) {
+        int max = s;    
+        boolean flag = false;   
+        if (s != a.length - 1) {
+            for (int i = s + 1; i < a.length; i++) {
+                if (a[max] <= a[i]){ 
+                    max = i;
+                    flag = true;
+                }
+            }
+             
+            if(!flag){
+                if (s + 2 < a.length){
+                    max(s + 1, a);
+                }
+                else{
+                    if(s+1 == a.length-1 && a[s - 1] == a[s])
+                        max = s - 1;
+                    else
+                        max = s + 1;
+                }
+            }
+        } else
+            max = s - 1;
+     
+        int temp = a[s];
+        a[s] = a[max];
+        a[max] = temp;       
+    }
+}
+ 
+public class Solution {
+ 
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int tc = sc.nextInt();
+         
+        for (int i = 0; i < tc; i++) {
+            String bonus = sc.next();
+            int n = sc.nextInt();
+            int[] a = new int[bonus.length()];
+            for (int k = 0; k < bonus.length(); k++)
+                a[k] = bonus.charAt(k) - 48; 
+            int[] b = a.clone();
+            int cnt = 0;
+            Arrays.sort(b);
+            int maxnum = b[b.length -1];
+            for(int k = b.length - 1; k >= 0 ; k--){
+                if(maxnum == b[k])
+                    cnt++;
+                else
+                    break;
+            }
+                         
+            find f = new find();
+ 
+            while (n > 0) {
+                for (int k = 0; k < a.length && n > 0; k++) {
+                    if(a.length - cnt <= cnt){
+                        for(int j = b.length - 1 ; j >= 0 ; j--)
+                            a[b.length-j-1] = b[j];
+                        n = 0;
+                        break;
+                    }
+                    else{
+                        f.max(k, a);
+                        n--;
+                    }
+                }
+            }
+            System.out.print("#"+(i+1)+" ");
+            for(int m : a)
+                System.out.print(m);
+            System.out.println(); 
+        }
+        sc.close();
+    }
 }
 ```
 
