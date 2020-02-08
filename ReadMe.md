@@ -55,7 +55,7 @@
 * [Day2](/[ProgrammingAdvanced]/[ProgrammingIntermediate]Day2.md)
   * 균형점 / 최대상금
 * [Day4](/[ProgrammingAdvanced]/[ProgrammingIntermediate]Day4.md)
-  * 공통조상
+  * 공통조상 /
 
 
 
