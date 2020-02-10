@@ -52,9 +52,43 @@
 
 ```java
 // Depth 연구하기
+package swAdvanced;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+class Node{
+	int data;
+	int p; // parent
+	int l; // left
+	int r; // right
+}
+
+public class Day4LCA {
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int TC = Integer.parseInt(br.readLine());
+		StringTokenizer st;
+		for(int test_case=1; test_case<=TC; test_case++) {
+			st = new StringTokenizer(br.readLine());
+			int V = Integer.parseInt(st.nextToken());
+			int E = Integer.parseInt(st.nextToken());
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			
+			
+			
+		}
+		
+	}
+
+}
+
 ```
 
-
+<https://jaejin89.tistory.com/112>
 
 ```C++
 // LCA(Lowest common ancestor) - DP로 성능 개선
