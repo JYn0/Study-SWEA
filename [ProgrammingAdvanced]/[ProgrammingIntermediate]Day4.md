@@ -51,39 +51,111 @@
 답은 공통조상 중 가장 가까운 것의 번호, 그것을 루트로 하는 서브 트리의 크기를 뜻하는 2개의 정수로 구성된다. 이 두 정수는 공백으로 구분한다.  
 
 ```java
-// Depth 연구하기
 package swAdvanced;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-class Node{
+class Node_inform{
 	int data;
 	int p; // parent
 	int l; // left
 	int r; // right
+	int level; // depth
+	int size; // size
+	
+	public Node_inform(int data) {
+		this.data = data;
+		this.p = 0;
+		this.l = 0;
+		this.r = 0;
+		this.level = 0;
+		this.size = 0;
+	}
 }
+
 
 public class Day4LCA {
 
+	static Node_inform[] nodes;
+
+	public static int level(int node, int depth) {
+		int size = 0;
+		if(nodes[node].l != 0) {
+			size++;
+			size += level(nodes[node].l, depth+1);
+		}
+		if(nodes[node].r != 0) {
+			size++;
+			size += level(nodes[node].r, depth+1);
+		} 
+		nodes[node].level = depth;
+		nodes[node].size = size;
+		return size;
+	}
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int TC = Integer.parseInt(br.readLine());
 		StringTokenizer st;
 		for(int test_case=1; test_case<=TC; test_case++) {
+			int answer_p = 0;
+			int answer_s = 0;
+			
 			st = new StringTokenizer(br.readLine());
 			int V = Integer.parseInt(st.nextToken());
 			int E = Integer.parseInt(st.nextToken());
 			int x = Integer.parseInt(st.nextToken());
 			int y = Integer.parseInt(st.nextToken());
+
+			nodes = new Node_inform[V+1];
+			for(int i=1; i<V+1; i++) {
+				nodes[i] = new Node_inform(i);
+			}
 			
+			st = new StringTokenizer(br.readLine());
+			nodes[1].level = 0;
+			for(int i=1; i<E+1; i++) {
+				int data_v = Integer.parseInt(st.nextToken());
+				int child_v = Integer.parseInt(st.nextToken());
+				
+				nodes[data_v].data = data_v;
+				nodes[child_v].p = data_v;
+				
+				// child(left or right)
+				if(nodes[data_v].l == 0) {
+					nodes[data_v].l = child_v;
+				}else {
+					nodes[data_v].r = child_v;
+				}
+			}
 			
+			level(1, 0); // node and level
+			
+			int u_level = nodes[x].level < nodes[y].level ? nodes[x].data : nodes[y].data;
+			int d_level = nodes[x].level > nodes[y].level ? nodes[x].data : nodes[y].data;
+			
+			while(true) { 
+				// 공통조상 찾기
+				if(nodes[u_level].level == nodes[d_level].level) {
+					if(nodes[u_level].p == nodes[d_level].p) {
+						answer_p = nodes[u_level].p;
+						break;
+					}else {
+						u_level = nodes[u_level].p;
+						d_level = nodes[d_level].p;
+					}
+				}else {
+					d_level = nodes[d_level].p;
+				}
+			}
+			answer_s = nodes[nodes[u_level].p].size + 1;
+			
+			System.out.println("#" + test_case + " " + answer_p + " " + answer_s);
 			
 		}
-		
 	}
-
 }
 
 ```
